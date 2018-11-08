@@ -62,6 +62,10 @@ public class WordSearch{
      */
     public boolean addWordHorizontal(String word,int row, int col)
     {
+      if(row > data[0].length || col > data.length || row < 0 || col < 0)
+      {
+        throw new IndexOutOfBoundsException("that row or column isn't in this array");
+      }
       if(word.length() > data[row].length - col)
       {
         return false;
@@ -97,6 +101,10 @@ public class WordSearch{
      */
     public boolean addWordVertical(String word,int row, int col)
     {
+      if(row > data[0].length || col > data.length || row < 0 || col < 0)
+      {
+        throw new IndexOutOfBoundsException("that row or column isn't in this array");
+      }
       if(word.length() > data.length - row)
       {
         return false;
@@ -121,6 +129,10 @@ public class WordSearch{
 
     public boolean addWordDiagonal(String word, int row, int col)
     {
+      if(row > data[0].length || col > data.length || row < 0 || col < 0)
+      {
+        throw new IndexOutOfBoundsException("that row or column isn't in this array");
+      }
       if(word.length() > data.length - row || word.length() > data[row].length - col)
       {
         return false;

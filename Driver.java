@@ -3,7 +3,7 @@ public class Driver
   public static void main(String[] args)
   {
     System.out.println("testing Constructor");
-    WordSearch testCase = new WordSearch(3, 5);
+    WordSearch testCase = new WordSearch(6, 5);
     System.out.println("should print out 3 by 5 array with underscores");
     System.out.println(testCase.toString());
     System.out.println("\n\n\n");
@@ -28,6 +28,9 @@ public class Driver
     System.out.println("\n\n\n");
     System.out.println("should have yeh on third column");
     testCase.addWordVertical("yeh", 0, 2);
+    System.out.println(testCase.toString());
+    System.out.println("\n\n\n");
+    testCase.addWordDiagonal("wow", 0, 3);
     System.out.println(testCase.toString());
   }
 }

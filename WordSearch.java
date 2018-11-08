@@ -67,7 +67,7 @@ public class WordSearch{
         return false;
       }
       int counter = 0;
-      for(int i = col; i < data[row].length ; i ++)
+      for(int i = col; i < word.length(); i ++)
       {
         if(data[row][i] != '_' && data[row][i] != word.charAt(counter))
         {
@@ -76,7 +76,7 @@ public class WordSearch{
         counter ++;
       }
       counter = 0;
-      for(int i = col; i < data[row].length ; i ++)
+      for(int i = col; i < word.length(); i ++)
       {
         data[row][i] = word.charAt(counter);
         counter ++;
@@ -102,7 +102,7 @@ public class WordSearch{
         return false;
       }
       int counter = 0;
-      for(int i = row; i < data.length ; i ++)
+      for(int i = row; i < word.length() ; i ++)
       {
         if(data[i][col] != '_' && data[i][col] != word.charAt(counter))
         {
@@ -111,11 +111,32 @@ public class WordSearch{
         counter ++;
       }
       counter = 0;
-      for(int i = row; i < data[row].length ; i ++)
+      for(int i = row; i < word.length(); i ++)
       {
         data[i][col] = word.charAt(counter);
         counter ++;
       }
       return true;
+    }
+
+    public boolean addWordDiagonal(String word, int row, int col)
+    {
+      if(word.length() > data.length - row || word.length() > data[row].length - col)
+      {
+        return false;
+      }
+
+      for(int i = 0; i < word.length() ; i ++)
+      {
+        if(data[row + i][col + i] != '_' && data[row + i][col + i] != word.charAt(i))
+        {
+          return false;
+        }
+      }
+        for(int i = 0; i < word.length(); i++)
+        {
+          data[row + i][col + i] = word.charAt(i);
+        }
+        return true;
     }
 }

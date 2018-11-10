@@ -45,9 +45,7 @@ public class WordSearch{
           data[i][j] = '_';
         }
       }
-      Random rand = new Random();
-      seed = rand.nextInt();
-      randgen = new Random(seed);
+      randgen = new Random();
       addAllWords();
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed)
@@ -87,25 +85,32 @@ public class WordSearch{
     }
     private boolean addAllWords()
     {
-      Random rng = new Random(123);
-
-      for(int i = 0; i < wordsToAdd.size(); i++)
+      Random rng;
+      int size;
+      int counter = wordsToAdd.size();
+      for(int i = 0; i < counter; i++)
       {
-        System.out.println(wordsToAdd.size());
-        int Rincr = Math.abs(rng.nextInt() % 2);
-        int Cincr = Math.abs(rng.nextInt() % 2);
-        int index = Math.abs(rng.nextInt() % wordsToAdd.size()) - 1;
-        String work = wordsToAdd.get(i);
-        int size = data.length * data[0].length;
-        while(addWord(wordsToAdd.get(index),
-         rng.nextInt() % data[0].length,
-          rng.nextInt() % data.length ,
-         Rincr, Cincr) || size > 0.2 * data.length * data[0].length)
+        if(wordsToAdd.size() == 0)
         {
-          size -= 1;
+          break;
+        }
+        rng = new Random();
+        int Rincr = Math.abs(rng.nextInt() % 2);
+        System.out.println(Rincr);
+        int Cincr = rng.nextInt() % 2;
+        int index = Math.abs(rng.nextInt() % wordsToAdd.size());
+        String work = wordsToAdd.get(index);
+        size = 0;
+        System.out.println(toString());
+        while((size < 1000) &&
+        !addWord(work, Math.abs(rng.nextInt() % data[0].length),
+        Math.abs(rng.nextInt() % data.length), Rincr, Cincr))
+        {
+          size ++;
         }
         wordsToAdd.remove(work);
         wordsAdded.add(work);
+        counter ++;
       }
       return wordsToAdd.size() == 0;
     }
@@ -147,21 +152,15 @@ public class WordSearch{
         return false;
       }
 
-      if(rowIncrement == 1 && colIncrement == 1)
-      {
-        if(row > data.length || col > data[0].length || row < 0 || col < 0)
-        {
-          return false;
-        }
-      }
-      else if(word.length() > data.length - row && word.length() > data[row].length - col)
+      if(((word.length() > data.length - row) && (Math.abs(rowIncrement) == 1))
+       || ((word.length() > data[row].length - col) && Math.abs(colIncrement) == 1))
       {
         return false;
       }
-
-      for(int i = 0; i < word.length() ; i ++)
+      for(int i = 0; i < word.length(); i ++)
       {
-        if(data[row + i * rowIncrement][col + i * colIncrement] != '_' && data[row + i * rowIncrement][col + i * colIncrement] != word.charAt(i))
+        if(data[row + i * rowIncrement][col + i * colIncrement] != '_'
+        && data[row + i * rowIncrement][col + i * colIncrement] != word.charAt(i))
         {
           return false;
         }

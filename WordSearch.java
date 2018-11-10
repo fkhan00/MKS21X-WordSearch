@@ -20,11 +20,13 @@ public class WordSearch{
       {
         throw new IllegalArgumentException("No negative inputs");
       }
+      wordsToAdd = new ArrayList<String>();
+      wordsAdded = new ArrayList<String>();
       try
       {
       File document = new File(fileName);
       Scanner scan = new Scanner(document);
-      while(scan.hasNext())
+      while(scan.hasNextLine())
       {
         String line = scan.nextLine();
         wordsToAdd.add(line);
@@ -54,6 +56,8 @@ public class WordSearch{
       {
         throw new IllegalArgumentException("No negative inputs");
       }
+      wordsToAdd = new ArrayList<String>();
+      wordsAdded = new ArrayList<String>();
       try
       {
       File document = new File(fileName);
@@ -84,19 +88,23 @@ public class WordSearch{
     private boolean addAllWords()
     {
       Random rng = new Random(123);
+
       for(int i = 0; i < wordsToAdd.size(); i++)
       {
-        int Rincr = rng.nextInt() % 2;
-        int Cincr = rng.nextInt() % 2;
-        int index  = rng.nextInt() % wordsToAdd.size();
-        String work = wordsToAdd.get(index);
-        wordsToAdd.remove(index);
+        System.out.println(wordsToAdd.size());
+        int Rincr = Math.abs(rng.nextInt() % 2);
+        int Cincr = Math.abs(rng.nextInt() % 2);
+        int index = Math.abs(rng.nextInt() % wordsToAdd.size()) - 1;
+        String work = wordsToAdd.get(i);
         int size = data.length * data[0].length;
-        while(addWord(wordsToAdd.get(index), rng.nextInt() % data[0].length, rng.nextInt() % data.length,
-         Rincr, Cincr) && size > data.length * data[0].length)
+        while(addWord(wordsToAdd.get(index),
+         rng.nextInt() % data[0].length,
+          rng.nextInt() % data.length ,
+         Rincr, Cincr) || size > 0.2 * data.length * data[0].length)
         {
           size -= 1;
         }
+        wordsToAdd.remove(work);
         wordsAdded.add(work);
       }
       return wordsToAdd.size() == 0;

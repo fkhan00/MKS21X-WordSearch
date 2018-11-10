@@ -1,36 +1,12 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class Driver
 {
   public static void main(String[] args)
   {
-    System.out.println("testing Constructor");
-    WordSearch testCase = new WordSearch(6, 5);
-    System.out.println("should print out 3 by 5 array with underscores");
-    System.out.println(testCase.toString());
-    System.out.println("\n\n\n");
-    System.out.println("Testing addWordHorizontal");
-    testCase.addWordHorizontal("hey", 0, 0);
-    System.out.println("top row should say hey");
-    System.out.println(testCase.toString());
-    System.out.println("\n\n\n");
-    testCase.addWordHorizontal("whats", 0, 0);
-    System.out.println("should not contain whats because of capacity");
-    System.out.println(testCase.toString());
-    System.out.println(testCase.toString());
-    System.out.println("\n\n\n");
-    System.out.println("testing addWordVertical");
-    testCase.addWordVertical("hey", 0, 0);
-    System.out.println("first column should say hey");
-    System.out.println(testCase.toString());
-    System.out.println("\n\n\n");
-    testCase.addWordVertical("greetings", 0, 0);
-    System.out.println("should not print greetings because of capacity");
-    System.out.println(testCase.toString());
-    System.out.println("\n\n\n");
-    System.out.println("should have yeh on third column");
-    testCase.addWordVertical("yeh", 0, 2);
-    System.out.println(testCase.toString());
-    System.out.println("\n\n\n");
-    testCase.addWordDiagonal("wow", 0, 3);
-    System.out.println(testCase.toString());
+    WordSearch testCase2 = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
+    System.out.println(testCase2.toString());
   }
 }

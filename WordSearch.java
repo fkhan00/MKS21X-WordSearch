@@ -47,6 +47,7 @@ public class WordSearch{
       }
       randgen = new Random();
       addAllWords();
+      addRandoms();
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed)
     {
@@ -82,6 +83,7 @@ public class WordSearch{
       seed = randSeed;
       randgen = new Random(seed);
       addAllWords();
+      addRandoms();
     }
     private boolean addAllWords()
     {
@@ -96,14 +98,12 @@ public class WordSearch{
         }
         rng = new Random();
         int Rincr = Math.abs(rng.nextInt() % 2);
-        System.out.println(Rincr);
-        int Cincr = rng.nextInt() % 2;
+        int Cincr = Math.abs(rng.nextInt() % 2);
         int index = Math.abs(rng.nextInt() % wordsToAdd.size());
         String work = wordsToAdd.get(index);
         size = 0;
-        System.out.println(toString());
-        while((size < 1000) &&
-        !addWord(work, Math.abs(rng.nextInt() % data[0].length),
+        while((size < 500) &&
+        !addWord(work.toUpperCase(), Math.abs(rng.nextInt() % data[0].length),
         Math.abs(rng.nextInt() % data.length), Rincr, Cincr))
         {
           size ++;
@@ -143,6 +143,11 @@ public class WordSearch{
         }
         wordList += "|";
       }
+      wordList += "\nWords: ";
+      for(int i = 0; i < wordsAdded.size(); i++)
+      {
+        wordList += (wordsAdded.get(i) + " ");
+      }
       return wordList;
     }
     public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement)
@@ -165,11 +170,29 @@ public class WordSearch{
           return false;
         }
       }
+
         for(int i = 0; i < word.length(); i++)
         {
           data[row + i * rowIncrement ][col + i * colIncrement ] = word.charAt(i);
         }
         return true;
 
+    }
+    public void addRandoms()
+    {
+      String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      Random RandX = new Random();
+      int index;
+      for(int i = 0; i < data.length; i++)
+      {
+        for(int j = 0; j < data[0].length; j++)
+        {
+          if(data[i][j] == '_')
+          {
+            index = Math.abs(RandX.nextInt() % 26);
+            data[i][j] = alphabet.charAt(index);
+          }
+        }
+      }
     }
 }

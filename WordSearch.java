@@ -81,14 +81,12 @@ public class WordSearch{
         }
       }
       seed = randSeed;
-      randgen = new Random(seed);
+      randgen = new Random(randSeed);
       addAllWords();
       addRandoms();
     }
     private boolean addAllWords()
     {
-      Random rng;
-      int size;
       int counter = wordsToAdd.size();
       for(int i = 0; i < counter; i++)
       {
@@ -96,21 +94,22 @@ public class WordSearch{
         {
           break;
         }
-        rng = new Random();
-        int Rincr = Math.abs(rng.nextInt() % 2);
-        int Cincr = Math.abs(rng.nextInt() % 2);
-        int index = Math.abs(rng.nextInt() % wordsToAdd.size());
+        int Rincr = Math.abs(randgen.nextInt() % 2);
+        int Cincr = Math.abs(randgen.nextInt() % 2);
+        int index = Math.abs(randgen.nextInt() % wordsToAdd.size());
         String work = wordsToAdd.get(index);
-        size = 0;
-        while((size < 500) &&
-        !addWord(work.toUpperCase(), Math.abs(rng.nextInt() % data[0].length),
-        Math.abs(rng.nextInt() % data.length), Rincr, Cincr))
+        for(int size = 0; size < 500; size++)
         {
-          size ++;
-        }
-        wordsToAdd.remove(work);
-        wordsAdded.add(work);
-        counter ++;
+        if(addWord(work.toUpperCase(), Math.abs(index % data[0].length),
+         Math.abs(randgen.nextInt() % data.length), Rincr, Cincr))
+         {
+           wordsToAdd.remove(work);
+           wordsAdded.add(work);
+           break;
+         }
+      }
+      wordsToAdd.remove(work);
+      counter ++;
       }
       return wordsToAdd.size() == 0;
     }
@@ -181,7 +180,6 @@ public class WordSearch{
     public void addRandoms()
     {
       String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      Random RandX = new Random();
       int index;
       for(int i = 0; i < data.length; i++)
       {
@@ -189,7 +187,7 @@ public class WordSearch{
         {
           if(data[i][j] == '_')
           {
-            index = Math.abs(RandX.nextInt() % 26);
+            index = Math.abs(randgen.nextInt() % 26);
             data[i][j] = alphabet.charAt(index);
           }
         }

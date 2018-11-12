@@ -47,7 +47,7 @@ public class WordSearch{
       }
       randgen = new Random();
       addAllWords();
-      addRandoms();
+      //addRandoms();
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed)
     {
@@ -83,7 +83,7 @@ public class WordSearch{
       seed = randSeed;
       randgen = new Random(randSeed);
       addAllWords();
-      addRandoms();
+      //addRandoms();
     }
     private boolean addAllWords()
     {
@@ -155,9 +155,11 @@ public class WordSearch{
       {
         return false;
       }
-
-      if(((word.length() > data.length - row) && (Math.abs(rowIncrement) == 1))
-       || ((word.length() > data[row].length - col) && Math.abs(colIncrement) == 1))
+      if(rowIncrement < 0 || colIncrement < 0)
+      {
+        word = Reverse(word);
+      }
+      if((word.length() > data.length - row) || (word.length() > data[row].length - col))
       {
         return false;
       }
@@ -192,5 +194,14 @@ public class WordSearch{
           }
         }
       }
+    }
+    public String Reverse(String words)
+    {
+      String output = "";
+      for(int i = words.length() - 1; i >= 0; i++)
+      {
+        output += words.substring(i, i + 1);
+      }
+      return output;
     }
 }

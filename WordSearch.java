@@ -47,9 +47,9 @@ public class WordSearch{
       }
       randgen = new Random();
       addAllWords();
-      //addRandoms();
+      addRandoms();
     }
-    public WordSearch(int rows, int cols, String fileName, int randSeed)
+    public WordSearch(int rows, int cols, String fileName, int randSeed, String key)
     {
       if(rows < 0 || cols < 0)
       {
@@ -81,9 +81,12 @@ public class WordSearch{
         }
       }
       seed = randSeed;
-      randgen = new Random(randSeed);
+      randgen = new Random(seed);
       addAllWords();
-      //addRandoms();
+      if (! key.equals("key"))
+      {
+        addRandoms();
+    }
     }
     private boolean addAllWords()
     {
@@ -147,6 +150,7 @@ public class WordSearch{
       {
         wordList += (wordsAdded.get(i) + " ");
       }
+      wordList += ("Seed Number " + seed);
       return wordList;
     }
     public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement)

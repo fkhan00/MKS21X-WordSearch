@@ -99,12 +99,17 @@ public class WordSearch{
         {
           break;
         }
-        int Rincr = Math.abs(randgen.nextInt() % 2);
-        int Cincr = Math.abs(randgen.nextInt() % 2);
+        int Rincr = randgen.nextInt() % 2;
+        int Cincr = randgen.nextInt() % 2;
         int index = Math.abs(randgen.nextInt() % wordsToAdd.size());
         String work = wordsToAdd.get(index);
         for(int size = 0; size < 500; size++)
         {
+          if(size == 0 && size % 40 == 0)
+          {
+            Rincr = randgen.nextInt() % 2;
+            Cincr = randgen.nextInt() % 2;
+          }
         if(addWord(work.toUpperCase(), Math.abs(index % data[0].length),
          Math.abs(randgen.nextInt() % data.length), Rincr, Cincr))
          {
@@ -112,7 +117,7 @@ public class WordSearch{
            wordsAdded.add(work);
            break;
          }
-      }
+       }
       wordsToAdd.remove(work);
       counter ++;
       }
@@ -164,6 +169,8 @@ public class WordSearch{
       if(rowIncrement < 0 || colIncrement < 0)
       {
         word = Reverse(word);
+        rowIncrement = Math.abs(rowIncrement);
+        colIncrement = Math.abs(colIncrement);
       }
       if((word.length() > data.length - row) || (word.length() > data[row].length - col))
       {
@@ -177,7 +184,6 @@ public class WordSearch{
           return false;
         }
       }
-
         for(int i = 0; i < word.length(); i++)
         {
           data[row + i * rowIncrement ][col + i * colIncrement ] = word.charAt(i);
@@ -204,9 +210,9 @@ public class WordSearch{
     public String Reverse(String words)
     {
       String output = "";
-      for(int i = words.length() - 1; i >= 0; i++)
+      for(int i = words.length() - 1; i >= 0; i -= 1)
       {
-        output += words.substring(i, i + 1);
+        output += words.charAt(i);
       }
       return output;
     }
